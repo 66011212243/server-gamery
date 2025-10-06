@@ -148,7 +148,7 @@ router.post("/login", (req, res) => {
                     image: user.image
                 };
 
-                res.status(200).json(results)
+                res.status(200).json({ success: true, user: req.session.user });
             })
     } catch (error) {
         console.log(error);
