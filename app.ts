@@ -52,7 +52,11 @@ app.use(session({
   secret: secretKey,  // เปลี่ยนเป็น key ของคุณเอง
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 30 } // 30 นาที
+  cookie: { maxAge: 1000 * 60 * 30,
+            httpOnly: true,          // ป้องกัน JS ฝั่ง client แก้ cookie
+            secure: true,            // ต้อง true สำหรับ HTTPS (Render ใช้ HTTPS)
+            sameSite: 'none' 
+   } // 30 นาที
 }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
