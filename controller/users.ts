@@ -67,9 +67,9 @@ function isAdmin(req: any, res: any, next: any) {
 
 // GET /users
 
-// router.get("/", (req, res) => {
-//     console.log("Server is running...");
-// });
+router.get("/", (req, res) => {
+    console.log("Server is running...");
+});
 
 router.get("/users", (req, res) => {
     connect.query("SELECT * FROM users", (err, results) => {
@@ -90,7 +90,7 @@ router.post("/register", upload.single("image"), async (req, res) => {
     const image = req.file.filename;
 
     try {
-        connect.query("INSERT INTO users (username, email, password, image ) VALUES (?,?,?,?,?) ",
+        connect.query("INSERT INTO users (username, email, password, image ) VALUES (?,?,?,?) ",
             [username, email, hashedPassword, image],
             (err, results, fields) => {
                 if (err) {
