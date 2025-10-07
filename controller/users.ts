@@ -67,9 +67,6 @@ function isAdmin(req: any, res: any, next: any) {
 
 // GET /users
 
-router.get("/", (req, res) => {
-    console.log("Server is running...");
-});
 
 router.get("/users", (req, res) => {
     connect.query("SELECT * FROM users", (err, results) => {
