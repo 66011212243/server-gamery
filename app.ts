@@ -36,7 +36,7 @@ export const app = express();
 import crypto from "crypto";
 
 const secretKey = crypto.randomBytes(32).toString("hex");
-
+const isProduction = process.env.NODE_ENV === 'production';
 app.use(express.json());
 
 app.use(
@@ -48,15 +48,21 @@ app.use(
   })
 );
 
+const sameSiteValue = isProduction ? 'none' : 'lax';
+const sessionCookieOptions = {
+    maxAge: 1000 * 60 * 30, // 30 นาที
+    httpOnly: true,         // ป้องกัน JS ฝั่ง client แก้ cookie
+    
+    // **เงื่อนไขสำคัญสำหรับ localhost และ Render**
+    secure: isProduction,  // 🔴 secure: true เมื่อเป็น Production (HTTPS), secure: false เมื่อเป็น Localhost (HTTP)
+    sameSite: sameSiteValue as 'none' | 'lax'
+};
+
 app.use(session({
   secret: secretKey,  // เปลี่ยนเป็น key ของคุณเอง
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 30,
-            httpOnly: true,          // ป้องกัน JS ฝั่ง client แก้ cookie
-            secure: true,            // ต้อง true สำหรับ HTTPS (Render ใช้ HTTPS)
-            sameSite: 'none' 
-   } // 30 นาที
+  cookie: sessionCookieOptions
 }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
