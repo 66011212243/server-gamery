@@ -16,7 +16,7 @@ app.set('trust proxy', 1);  // ✅ จำเป็นบน Render/Cloud Hosting
 
 app.use(
   cors({
-    origin: ['https://gamery-web.firebaseapp.com', 'https://gamery-web.web.app'],
+    origin: ['https://gamery-web.firebaseapp.com', 'https://gamery-web.web.app','http://localhost:4200'],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
