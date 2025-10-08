@@ -26,9 +26,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 30,
-    sameSite: 'none',       // ต้องตั้งค่า sameSite=None สำหรับ cross-site cookie
-    secure: true
+      maxAge: 1000 * 60 * 30,
+      sameSite: 'none',       // ต้องตั้งค่า sameSite=None สำหรับ cross-site cookie
+      secure: true
   } // 30 นาที
 }));
 
