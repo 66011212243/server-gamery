@@ -12,7 +12,7 @@ const secretKey = process.env.SESSION_SECRET || "mySuperSecretKey";
 
 app.use(express.json());
 
-app.set('trust proxy', 1);  // ✅ จำเป็นบน Render/Cloud Hosting
+// app.set('trust proxy', 1);  // ✅ จำเป็นบน Render/Cloud Hosting
 
 app.use(
   cors({
@@ -29,8 +29,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
       maxAge: 1000 * 60 * 30,
-      sameSite: 'none',       // ต้องตั้งค่า sameSite=None สำหรับ cross-site cookie
-      secure: true
+      // sameSite: 'none',       
+      // secure: true
   } // 30 นาที
 }));
 
