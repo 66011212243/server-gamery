@@ -8,9 +8,11 @@ import { router as usersRouter } from "./controller/users";
 export const app = express();
 import crypto from "crypto";
 
-const secretKey = crypto.randomBytes(32).toString("hex");
+const secretKey = process.env.SESSION_SECRET || "mySuperSecretKey";
 
 app.use(express.json());
+
+app.set('trust proxy', 1);  // ✅ จำเป็นบน Render/Cloud Hosting
 
 app.use(
   cors({
@@ -22,7 +24,7 @@ app.use(
 );
 
 app.use(session({
-  secret: secretKey,  // เปลี่ยนเป็น key ของคุณเอง
+  secret: secretKey, 
   resave: false,
   saveUninitialized: false,
   cookie: {
